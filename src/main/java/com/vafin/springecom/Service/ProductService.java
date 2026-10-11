@@ -18,4 +18,10 @@ public class ProductService {
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
+
+    public Product getProductById(String id) {
+        Integer intId = Integer.parseInt(id);
+        Product product = productRepository.getReferenceById(intId);
+        return product;
+    }
 }
