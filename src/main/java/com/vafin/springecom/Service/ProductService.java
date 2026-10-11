@@ -4,7 +4,9 @@ import com.vafin.springecom.Model.Product;
 import com.vafin.springecom.Repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.security.Provider;
 import java.util.List;
 
@@ -19,9 +21,16 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Product getProductById(String id) {
-        Integer intId = Integer.parseInt(id);
-        Product product = productRepository.getReferenceById(intId);
+    public Product getProductById(Integer id) {
+        Product product = productRepository.getReferenceById(id);
+        return product;
+    }
+
+    public Product addProduct(Product product, MultipartFile image) throws IOException {
+        product.setImageName(image.getOriginalFilename());
+        product.setImageType(image.getContentType());
+        product.setImageData(image.getBytes());
+        productRepository.save(product);
         return product;
     }
 }
