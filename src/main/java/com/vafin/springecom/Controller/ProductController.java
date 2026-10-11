@@ -34,15 +34,46 @@ public class ProductController {
         }
     }
 
+    @GetMapping("/product/{id}/image")
+    public ResponseEntity<byte[]> getImage(@PathVariable int id) {
+        Product product = productService.getProductById(id);
+        if (product != null && product.getImageData() != null) {
+            return new ResponseEntity<>(product.getImageData(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PostMapping("/product")
     public ResponseEntity<?> addProduct(@RequestPart Product product, @RequestPart MultipartFile imageFile) {
         try {
-            Product newProduct = productService.addProduct(product, imageFile);
+            Product newProduct = productService.addOrUpdateProduct(product, imageFile);
             return new ResponseEntity(newProduct, HttpStatus.CREATED);
         } catch (IOException e) {
-            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
+
+    @PutMapping("/product/{id}")
+    public ResponseEntity<?> updateProduct(@PathVariable Integer id, @RequestPart Product product, @RequestPart MultipartFile imageFile) {
+        try {
+            Product updatedProduct = productService.addOrUpdateProduct(product, imageFile);
+            return new ResponseEntity(updatedProduct, HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/product/{id}")
+    public ResponseEntity<?> deleteProduct(@PathVariable Integer id) {
+        Product product = productService.getProductById(id);
+        if (product != null) {
+            productService.deleteProduct(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
 
 }

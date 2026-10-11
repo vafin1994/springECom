@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.security.Provider;
 import java.util.List;
 
 
@@ -22,15 +21,21 @@ public class ProductService {
     }
 
     public Product getProductById(Integer id) {
-        Product product = productRepository.getReferenceById(id);
+        Product product = productRepository.getById(id);
         return product;
     }
 
-    public Product addProduct(Product product, MultipartFile image) throws IOException {
+    public Product addOrUpdateProduct(Product product, MultipartFile image) throws IOException {
         product.setImageName(image.getOriginalFilename());
         product.setImageType(image.getContentType());
         product.setImageData(image.getBytes());
         productRepository.save(product);
         return product;
     }
+
+    public void deleteProduct(Integer id) {
+        productRepository.deleteById(id);
+    }
+
+
 }
