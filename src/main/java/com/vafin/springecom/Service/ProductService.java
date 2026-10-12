@@ -21,8 +21,7 @@ public class ProductService {
     }
 
     public Product getProductById(Integer id) {
-        Product product = productRepository.getById(id);
-        return product;
+        return productRepository.findById(id).orElse(null);
     }
 
     public Product addOrUpdateProduct(Product product, MultipartFile image) throws IOException {

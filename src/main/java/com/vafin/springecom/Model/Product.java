@@ -17,7 +17,7 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String name;
     private String description;
     private String brand;
@@ -25,12 +25,12 @@ public class Product {
     private String category;
     private Date releaseDate;
     private boolean productAvailable;
-    private int stockQuantity;
+    private Integer stockQuantity;
     private String imageName;
     private String imageType;
     private byte[] imageData;
 
-    public Product(int id) {
+    public Product(Integer id) {
         this.id = id;
     }
 
