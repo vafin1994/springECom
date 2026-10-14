@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AppContext from "../Context/Context";
 import unplugged from "../assets/unplugged.png";
+import { formatCurrency } from "../utils/formatCurrency";
 
 const Home = ({ selectedCategory }) => {
   const { data, isError, addToCart, refreshData } = useContext(AppContext);
@@ -141,7 +142,7 @@ const Home = ({ selectedCategory }) => {
                         <hr />
                         <div className="mt-auto">
                           <h5 className="mb-2 fw-bold">
-                            <i className="bi bi-currency-dollar"></i>{price}
+                            {formatCurrency(price)}
                           </h5>
                           <button
                             className="btn btn-primary w-100"

@@ -3,6 +3,7 @@ import AppContext from "../Context/Context";
 import axios from "axios";
 import CheckoutPopup from "./CheckoutPopup";
 import { Button } from 'react-bootstrap';
+import { formatCurrency } from "../utils/formatCurrency";
 
 const Cart = () => {
   const { cart, removeFromCart, clearCart } = useContext(AppContext);
@@ -143,7 +144,7 @@ const Cart = () => {
                                 </div>
                               </div>
                             </td>
-                            <td>₹ {item.price}</td>
+                            <td>{formatCurrency(item.price)}</td>
                             <td>
                               <div className="input-group input-group-sm" style={{ width: "120px" }}>
                                 <button
@@ -168,7 +169,7 @@ const Cart = () => {
                                 </button>
                               </div>
                             </td>
-                            <td className="fw-bold">₹ {(item.price * item.quantity).toFixed(2)}</td>
+                            <td className="fw-bold">{formatCurrency(item.price * item.quantity)}</td>
                             <td>
                               <button
                                 className="btn btn-sm btn-outline-danger"
@@ -187,7 +188,7 @@ const Cart = () => {
                     <div className="card-body">
                       <div className="d-flex justify-content-between align-items-center">
                         <h5 className="mb-0">Total:</h5>
-                        <h5 className="mb-0">₹ {totalPrice.toFixed(2)}</h5>
+                        <h5 className="mb-0">{formatCurrency(totalPrice)}</h5>
                       </div>
                     </div>
                   </div>

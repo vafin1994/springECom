@@ -4,6 +4,7 @@ import { useState } from "react";
 import AppContext from "../Context/Context";
 import axios from "../axios";
 import { toast } from "react-toastify";
+import { formatCurrency } from "../utils/formatCurrency";
 
 const Product = () => {
   const { id } = useParams();
@@ -105,7 +106,7 @@ const Product = () => {
             <p>{product.description}</p>
           </div>
 
-          <h3 className="fw-bold mb-3">₹ {product.price}</h3>
+          <h3 className="fw-bold mb-3">{formatCurrency(product.price)}</h3>
 
           <div className="d-grid gap-2 mb-3">
             <button

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { formatCurrency } from '../utils/formatCurrency';
 
 const Order = () => {
   const baseUrl = import.meta.env.VITE_BASE_URL;
@@ -45,14 +46,6 @@ const Order = () => {
       default:
         return 'bg-secondary';
     }
-  };
-
-  const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      maximumFractionDigits: 2
-    }).format(amount);
   };
 
   const calculateOrderTotal = (items) => {
